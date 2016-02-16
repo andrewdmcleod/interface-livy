@@ -15,24 +15,24 @@ from charms.reactive import hook
 from charms.reactive import scopes
 
 
-class HiveRequires(RelationBase):
+class LivyRequires(RelationBase):
     scope = scopes.GLOBAL
 
     def set_ready(self):
         return self.get_remote('ready', 'false').lower() == 'true'
 
-    @hook('{requires:hive}-relation-joined')
+    @hook('{requires:livy}-relation-joined')
     def joined(self):
         conv = self.conversation()
         conv.set_state('{relation_name}.joined')
 
-    @hook('{requires:hive}-relation-changed')
+    @hook('{requires:livy}-relation-changed')
     def changed(self):
         conv = self.conversation()
         if self.set_ready():
             conv.set_state('{relation_name}.ready')
 
-    @hook('{provides:hive}-relation-departed')
+    @hook('{provides:livy}-relation-departed')
     def departed(self):
         conv = self.conversation()
         conv.remove_state('{relation_name}.joined')

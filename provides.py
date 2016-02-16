@@ -16,17 +16,17 @@ from charms.reactive import hook
 from charms.reactive import scopes
 
 
-class HiveProvides(RelationBase):
+class LivyProvides(RelationBase):
     scope = scopes.GLOBAL
 
     auto_accessors = ['hostname', 'port']
 
-    @hook('{provides:hive}-relation-joined')
+    @hook('{provides:livy}-relation-joined')
     def joined(self):
         conv = self.conversation()
         conv.set_state('{relation_name}.joined')
 
-    @hook('{requires:hive}-relation-departed')
+    @hook('{requires:livy}-relation-departed')
     def departed(self):
         conv = self.conversation()
         conv.remove_state('{relation_name}.joined')
